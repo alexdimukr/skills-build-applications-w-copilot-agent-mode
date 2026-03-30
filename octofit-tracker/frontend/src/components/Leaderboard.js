@@ -11,7 +11,7 @@ const Leaderboard = () => {
       try {
         console.log('🥇 Loading Leaderboard component...');
         setLoading(true);
-        const data = await fetchData('/api/leaderboard/');
+        const data = await fetchData('/api/leaderboards/');
         console.log('🥇 Leaderboard loaded successfully:', data);
         setLeaderboard(data);
       } catch (err) {
