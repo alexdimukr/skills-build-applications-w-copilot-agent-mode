@@ -42,10 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'dj_rest_auth',
-    'django_allauth',
-    'django_allauth.account',
+    'allauth',
+    'allauth.account',
+    'octofit_tracker',
 ]
 MONGO_DB_NAME = os.environ.get('MONGO_DB_NAME', 'octofit_db')
 MONGO_HOST = os.environ.get('MONGO_HOST', 'localhost')
@@ -67,6 +69,7 @@ DATABASES = {
     }
 }
 
+# CORS settings
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = [
@@ -113,22 +116,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'octofit_tracker.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'octofit_db',
-        'ENFORCE_SCHEMA_VALIDATION': False,
-        'CLIENT': {
-            'host': 'localhost',
-            'port': 27017,
-        }
-    }
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -170,12 +157,13 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-# CORS settings
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_HEADERS = ['*']
-CORS_ALLOW_METHODS = ['*']
+# HTTPS/SSL settings for development in codespaces
+if os.environ.get('CODESPACE_NAME'):
+    # Trust X-Forwarded-Proto header for HTTPS detection in codespaces
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = False  # Keep False in development to avoid redirect loops
+    SESSION_COOKIE_SECURE = False  # Keep False in development
+    CSRF_COOKIE_SECURE = False  # Keep False in development
 
 # REST Framework settings
 REST_FRAMEWORK = {
