@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'dj_rest_auth',
-    'django_allauth',
-    'django_allauth.account',
+    'django-allauth',
+    'django-allauth.account',
 ]
 
 MIDDLEWARE = [
