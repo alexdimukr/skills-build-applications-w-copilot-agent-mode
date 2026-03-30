@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-z)14=2!q3^$z_9j@+8$5*9=v5h5-5q5(5q5(5q5(5q5(5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+
+import os
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+if os.environ.get('CODESPACE_NAME'):
+    ALLOWED_HOSTS.append(f"{os.environ.get('CODESPACE_NAME')}-8000.app.github.dev")
 
 
 # Application definition
@@ -40,8 +44,41 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'dj_rest_auth',
-    'django-allauth',
-    'django-allauth.account',
+    'django_allauth',
+    'django_allauth.account',
+]
+MONGO_DB_NAME = os.environ.get('MONGO_DB_NAME', 'octofit_db')
+MONGO_HOST = os.environ.get('MONGO_HOST', 'localhost')
+MONGO_PORT = int(os.environ.get('MONGO_PORT', 27017))
+MONGO_USER = os.environ.get('MONGO_USER', '')
+MONGO_PASSWORD = os.environ.get('MONGO_PASSWORD', '')
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': MONGO_DB_NAME,
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+            'host': MONGO_HOST,
+            'port': MONGO_PORT,
+            'username': MONGO_USER,
+            'password': MONGO_PASSWORD,
+        }
+    }
+}
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
 ]
 
 MIDDLEWARE = [
