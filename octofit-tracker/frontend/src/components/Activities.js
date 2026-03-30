@@ -11,7 +11,7 @@ const Activities = () => {
       try {
         console.log('🏃 Loading Activities component...');
         setLoading(true);
-        const data = await fetchData('/api/activities/');
+        const data = await fetchData(`https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/activities/`);
         console.log('🏃 Activities loaded successfully:', data);
         setActivities(data);
       } catch (err) {

@@ -21,7 +21,7 @@ const getBaseURL = () => {
  */
 export const fetchData = async (endpoint) => {
   const baseURL = getBaseURL();
-  const url = `${baseURL}${endpoint}`;
+  const url = endpoint.startsWith('http') ? endpoint : `${baseURL}${endpoint}`;
   
   console.log(`🔗 Fetching data from: ${url}`);
   

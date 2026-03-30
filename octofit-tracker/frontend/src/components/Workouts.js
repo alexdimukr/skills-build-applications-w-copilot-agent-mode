@@ -11,7 +11,7 @@ const Workouts = () => {
       try {
         console.log('💪 Loading Workouts component...');
         setLoading(true);
-        const data = await fetchData('/api/workouts/');
+        const data = await fetchData(`https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/workouts/`);
         console.log('💪 Workouts loaded successfully:', data);
         setWorkouts(data);
       } catch (err) {

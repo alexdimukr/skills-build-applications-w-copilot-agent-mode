@@ -11,7 +11,7 @@ const Teams = () => {
       try {
         console.log('🏆 Loading Teams component...');
         setLoading(true);
-        const data = await fetchData('/api/teams/');
+        const data = await fetchData(`https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/teams/`);
         console.log('🏆 Teams loaded successfully:', data);
         setTeams(data);
       } catch (err) {

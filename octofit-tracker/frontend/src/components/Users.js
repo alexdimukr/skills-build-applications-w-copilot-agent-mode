@@ -11,7 +11,7 @@ const Users = () => {
       try {
         console.log('👥 Loading Users component...');
         setLoading(true);
-        const data = await fetchData('/api/users/');
+        const data = await fetchData(`https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/users/`);
         console.log('👥 Users loaded successfully:', data);
         setUsers(data);
       } catch (err) {
