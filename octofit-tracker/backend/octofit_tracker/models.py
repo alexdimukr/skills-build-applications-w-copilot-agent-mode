@@ -19,13 +19,13 @@ class Team(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
 class Activity(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.CharField(max_length=100)
     type = models.CharField(max_length=100)
     duration = models.IntegerField()
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    team = models.CharField(max_length=100)
 
 class Leaderboard(models.Model):
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    team = models.CharField(max_length=100)
     points = models.IntegerField()
 
 class Workout(models.Model):
